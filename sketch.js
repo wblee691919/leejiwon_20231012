@@ -8,6 +8,8 @@ let wallX2 = 600;
 let wallY1 = 0;
 let wallY2 = 400;
 
+let score = 0;
+
 function preload() {
   img = loadImage('Map.png');
 }
@@ -20,6 +22,11 @@ function setup() {
 
 function draw() {
   image(img, 0, 0);
+
+  fill(255, 255, 255);
+  textSize(20);
+  text("점수: " + score, 20, 20);
+
   if (keyIsDown(LEFT_ARROW)) px -= 8;
   if (keyIsDown(RIGHT_ARROW)) px += 8;
   if (keyIsDown(UP_ARROW)) py -= 8;
@@ -29,7 +36,22 @@ function draw() {
   ellipse(px, py, pd); // 팩맨 본체
 
 }
+
 //20260425_01:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* 
 //점찍기
