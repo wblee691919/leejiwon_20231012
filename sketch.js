@@ -3,10 +3,12 @@ let img;
 let px, py; 
 let pd = 75; // 팩맨의 지름
 
-let wallX1 = 383;
-let wallX2 = 2430;
-let wallY1 = 90;
-let wallY2 = 1460;
+let wallPixels = [];
+
+// let wallX1 = 383;
+// let wallX2 = 2430;
+// let wallY1 = 90;
+// let wallY2 = 1460;
 // 벽을 하나하나 만드는 건 현실적으로 어렵
 //이미지 픽셀을 뽑아내는 코드를 짜야할듯
 
@@ -18,11 +20,15 @@ let score = 0;
 function preload() {
   img = loadImage('Map.png');
 }
+
 function setup() {
   createCanvas(2816, 1536);
   px = width / 2;
   py = height / 2;
   
+  img.loadPixels();
+  //픽셀 배열을 추출하여 미리 로드
+  //https://p5js.org/ko/reference/p5/loadPixels/
 }
 
 function draw() {
