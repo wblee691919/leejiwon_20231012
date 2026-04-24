@@ -25,10 +25,24 @@ function setup() {
   createCanvas(2816, 1536);
   px = width / 2;
   py = height / 2;
-  
+
   img.loadPixels();
   //픽셀 배열을 추출하여 미리 로드
   //https://p5js.org/ko/reference/p5/loadPixels/
+  for (let y = 0; y < img.height; y++) {
+    wallPixels[y] = [];
+    for (let x = 0; x < img.width; x++) {
+      let idx = (y * img.width + x) * 4; //y * img.width -> 몇 번째 줄인지
+      // + x -> 그 줄에서 몇 번째 칸인지
+      // *4 -> RGBA 각각 4개의 값이 있기 때문에 
+      //즉, 픽셀의 인덱스 값을 계산하여
+      let r = img.pixels[idx]; // idx는 R 
+      let b = img.pixels[idx + 2];// idx+2는 B
+      // 파란 벽 감지: R 낮고 B 높음
+      //배열에 벽 여부 저장
+      wallPixels[y][x] = (r < 100 && b > 120);
+    }
+  }
 }
 
 function draw() {
