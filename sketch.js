@@ -1,4 +1,7 @@
 let img; 
+
+let px, py; 
+
 let wallX1 = 0;
 let wallX2 = 600;
 let wallY1 = 0;
@@ -16,7 +19,7 @@ function draw() {
 
 
 }
-//20260424_22:
+//20260425_01:
 
 /* 
 //점찍기
