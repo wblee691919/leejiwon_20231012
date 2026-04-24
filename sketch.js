@@ -12,10 +12,16 @@ function preload() {
 }
 function setup() {
   createCanvas(2816, 1536);
+  px = width / 2;
+  py = height / 2;
 }
 
 function draw() {
   image(img, 0, 0);
+  if (keyIsDown(LEFT_ARROW)) px -= 3;
+  if (keyIsDown(RIGHT_ARROW)) px += 3;
+  if (keyIsDown(UP_ARROW)) py -= 3;
+  if (keyIsDown(DOWN_ARROW)) py += 3;
 
 
 }
