@@ -8,6 +8,9 @@ let wallX2 = 2430;
 let wallY1 = 90;
 let wallY2 = 1460;
 
+let tunnelYmin = 710
+let tunnelYmax = 825
+
 let score = 0;
 
 function preload() {
@@ -24,8 +27,8 @@ function draw() {
   image(img, 0, 0);
 
   fill(255, 255, 255);
-  textSize(20);
-  text("점수: " + score, 20, 20);
+  textSize(80);
+  text("Score: " + score, 19, 110);
 
   if (keyIsDown(LEFT_ARROW)) {
     if (px - pd/2 > wallX1) {
@@ -70,7 +73,7 @@ function draw() {
 
 
 
-//점찍기
+// //점찍기
 // let img;
 // let points = []; // 클릭한 좌표 저장
 
