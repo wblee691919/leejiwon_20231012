@@ -7,6 +7,8 @@ let wallX1 = 383;
 let wallX2 = 2430;
 let wallY1 = 90;
 let wallY2 = 1460;
+// 벽을 하나하나 만드는 건 현실적으로 어렵
+//이미지 픽셀을 뽑아내는 코드를 짜야할듯
 
 let tunnelYMin = 710
 let tunnelYMax = 825
