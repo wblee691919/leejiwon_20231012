@@ -8,8 +8,8 @@ let wallX2 = 2430;
 let wallY1 = 90;
 let wallY2 = 1460;
 
-let tunnelYmin = 710
-let tunnelYmax = 825
+let tunnelYMin = 710
+let tunnelYMax = 825
 
 let score = 0;
 
@@ -29,6 +29,17 @@ function draw() {
   fill(255, 255, 255);
   textSize(80);
   text("Score: " + score, 19, 110);
+
+  if (py > tunnelYMin && py < tunnelYMax) {
+    // 왼쪽 끝으로 나가면 오른쪽으로 워프
+    if (px < 0) {
+      px = width;
+    }
+    // 오른쪽 끝으로 나가면 왼쪽으로 워프
+    if (px > width) {
+      px = 0;
+    }
+  }
 
   if (keyIsDown(LEFT_ARROW)) {
     if (px - pd/2 > wallX1) {
