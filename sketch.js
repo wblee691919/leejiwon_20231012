@@ -5,10 +5,10 @@ let pd = 75; // 팩맨의 지름
 
 let wallPixels = [];
 
-// let wallX1 = 383;
-// let wallX2 = 2430;
-// let wallY1 = 90;
-// let wallY2 = 1460;
+let wallX1 = 383;
+let wallX2 = 2430;
+let wallY1 = 90;
+let wallY2 = 1460;
 // 벽을 하나하나 만드는 건 현실적으로 어렵
 // 이미지 픽셀을 뽑아내는 코드를 짜야할 듯...
 
@@ -70,6 +70,7 @@ function draw() {
     // 오른쪽 끝으로 나가면 왼쪽으로 워프
     if (px > width) {
       px = 0;
+      facing = PI;
     }
   }
 
@@ -80,6 +81,7 @@ function draw() {
     else if (px - pd/2 > wallX1) {
       px -= 8;
     }
+    facing = PI; // 왼쪽
   }
   if (keyIsDown(RIGHT_ARROW)) {
     if (py > tunnelYMin && py < tunnelYMax) {
@@ -88,22 +90,25 @@ function draw() {
     else if (px + pd/2 < wallX2) {
       px += 8;
     }
+    facing = 0; // 오른쪽
   }
   if (keyIsDown(UP_ARROW)) {
     if (py - pd/2 > wallY1){
       py -= 8;
     }
+      facing = -1/2 * PI; // 위
   }
   if (keyIsDown(DOWN_ARROW)) {
     if (py + pd/2 < wallY2) {
-    py += 8;
+      py += 8;
     }
+    facing = 1/2 * PI; // 아래
   }
   fill(255, 255, 0);
   noStroke();
   arc(px, py, pd, pd, facing + mouthAngle, facing + TWO_PI - mouthAngle, PIE);
   //이러면 팩맨이 게임 실행하고 사라짐...
-  
+
 
 }
 
