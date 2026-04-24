@@ -42,13 +42,18 @@ function draw() {
   }
 
   if (keyIsDown(LEFT_ARROW)) {
-    if (px - pd/2 > wallX1) {
+    if (py > tunnelYMin && py < tunnelYMax) {
+      px -= 8;
+    } 
+    else if (px - pd/2 > wallX1) {
       px -= 8;
     }
   }
-
   if (keyIsDown(RIGHT_ARROW)) {
-    if (px + pd/2 < wallX2) {
+    if (py > tunnelYMin && py < tunnelYMax) {
+      px += 8;
+    } 
+    else if (px + pd/2 < wallX2) {
       px += 8;
     }
   }
