@@ -10,7 +10,7 @@ let wallPixels = [];
 // let wallY1 = 90;
 // let wallY2 = 1460;
 // 벽을 하나하나 만드는 건 현실적으로 어렵
-//이미지 픽셀을 뽑아내는 코드를 짜야할듯
+// 이미지 픽셀을 뽑아내는 코드를 짜야할 듯...
 
 let tunnelYMin = 710
 let tunnelYMax = 825
@@ -41,6 +41,7 @@ function setup() {
       // 파란 벽 감지: R 낮고 B 높음
       //배열에 벽 여부 저장
       wallPixels[y][x] = (r < 100 && b > 120);
+      //R이 100보다 낮고 B가 120보다 높으면 벽으로 간주 후 true, 아니면 false
     }
   }
 }
