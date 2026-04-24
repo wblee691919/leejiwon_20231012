@@ -15,6 +15,10 @@ let wallPixels = [];
 let tunnelYMin = 710
 let tunnelYMax = 825
 
+let mouthAngle = 0;
+let mouthDir = 1; // 1: 열리는 방향
+let facing = 0; // 팩맨이 바라보는 방향 (PI -> Radians)
+
 let score = 0;
 
 function preload() {
@@ -52,6 +56,11 @@ function draw() {
   fill(255, 255, 255);
   textSize(80);
   text("Score: " + score, 19, 110);
+
+  //1은 입 열림, -1은 닫힘
+  mouthAngle += 0.03 * mouthDir;
+  if (mouthAngle > 0.4) mouthDir = -1;
+  if (mouthAngle < 0.01) mouthDir = 1;
 
   if (py > tunnelYMin && py < tunnelYMax) {
     // 왼쪽 끝으로 나가면 오른쪽으로 워프
@@ -91,11 +100,14 @@ function draw() {
     }
   }
   fill(255, 255, 0);
-  ellipse(px, py, pd); // 팩맨 본체
+  noStroke();
+  arc(px, py, pd, pd, facing + mouthAngle, facing + TWO_PI - mouthAngle, PIE);
+  //이러면 팩맨이 게임 실행하고 사라짐...
+  
 
 }
 
-//20260425_01:
+//20260425_02:
 
 
 
