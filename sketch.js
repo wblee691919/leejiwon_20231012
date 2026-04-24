@@ -3,10 +3,10 @@ let img;
 let px, py; 
 let pd = 75; // 팩맨의 지름
 
-let wallX1 = 0;
-let wallX2 = 600;
-let wallY1 = 0;
-let wallY2 = 400;
+let wallX1 = 383;
+let wallX2 = 2430;
+let wallY1 = 90;
+let wallY2 ;
 
 let score = 0;
 
@@ -27,10 +27,25 @@ function draw() {
   textSize(20);
   text("점수: " + score, 20, 20);
 
-  if (keyIsDown(LEFT_ARROW)) px -= 8;
-  if (keyIsDown(RIGHT_ARROW)) px += 8;
-  if (keyIsDown(UP_ARROW)) py -= 8;
-  if (keyIsDown(DOWN_ARROW)) py += 8;
+  if (keyIsDown(LEFT_ARROW)) {
+    if (px - pd/2 > wallX1) {
+      px -= 8;
+    }
+  }
+
+  if (keyIsDown(RIGHT_ARROW)) {
+    if (px + pd/2 < wallX2) {
+      px += 8;
+    }
+  }
+  if (keyIsDown(UP_ARROW)) {
+    if (py - pd/2 > wallY1){
+      py -= 8;
+    }
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    py += 8;
+  }
 
   fill(255, 255, 0);
   ellipse(px, py, pd); // 팩맨 본체
