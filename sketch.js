@@ -115,6 +115,14 @@ function draw() {
     }
   }
 //이제워프처리해야함
+  if(inTunnel(py)){
+    if(px<-py){
+      px= width + pd;
+    }
+    if(px>py){
+      px= width - pd;
+    }
+  }
 
   fill(255, 255, 0);
   noStroke();
