@@ -1,16 +1,11 @@
+/*
+
 let img; 
 
 let px, py; 
 let pd = 65; // 팩맨의 지름
 
 let wallPixels = [];
-
-// let wallX1 = 383;
-// let wallX2 = 2430;
-// let wallY1 = 90;
-// let wallY2 = 1460;
-// 벽을 하나하나 만드는 건 현실적으로 어렵
-// 이미지 픽셀을 뽑아내는 코드를 짜야할 듯...
 
 let tunnelYMin = 710
 let tunnelYMax = 825
@@ -21,6 +16,14 @@ let facing = 0; // 팩맨이 바라보는 방향 (PI -> Radians)
 
 let score = 0;
 let moveSpeed = 8;
+
+
+let dx = [100, 200, 300, 400, 500]; // 점들의 X 좌표
+let dy = [150, 250, 100, 300, 200]; // 점들의 Y 좌표
+let dSize = 50;                     // 점들의 크기
+let dActive = [true, true, true, true, true]; // 점들의 생존 여부 (핵심!)
+
+
 
 function preload() {
   img = loadImage('Map.png');
@@ -81,18 +84,6 @@ function draw() {
   if (mouthAngle > 0.4) mouthDir = -1;
   if (mouthAngle < 0.01) mouthDir = 1;
 
-  // if (py > tunnelYMin && py < tunnelYMax) {
-  //   // 왼쪽 끝으로 나가면 오른쪽으로 워프
-  //   if (px < 0) {
-  //     px = width;
-  //   }
-  //   // 오른쪽 끝으로 나가면 왼쪽으로 워프
-  //   if (px > width) {
-  //     px = 0;
-  //     facing = PI;
-  //   }
-
-
   if (keyIsDown(LEFT_ARROW)) {
     facing = PI;
     if (inTunnel(py)) {
@@ -128,11 +119,29 @@ function draw() {
   fill(255, 255, 0);
   noStroke();
   arc(px, py, pd, pd, facing + mouthAngle, facing + TWO_PI - mouthAngle, PIE);
+
+
+
+
+  for (let i = 0; i < 5; i++) {
+    // 점이 살아있는 경우에만 충돌 체크 및 그리기
+    if (dActive[i] === true) {
+      fill(255, 100, 100);
+      ellipse(dx[i], dy[i], dSize);
+
+      // 거리 계산 (dist 함수 사용)
+      let distance = dist(px, py, dx[i], dy[i]);
+
+      // 충돌 조건: 거리가 두 반지름의 합보다 작을 때
+      if (distance < (pd / 2) + (dSize / 2)) {
+        dActive[i] = false; // splice 대신 상태를 '거짓'으로 바꿔서 안 보이게 함
+        score = score + 1;
+      }
+    }
+  }
 }
 
-
-
-
+*/
 
 
 // //점찍기
