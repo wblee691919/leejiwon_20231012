@@ -91,42 +91,41 @@ function draw() {
   //     px = 0;
   //     facing = PI;
   //   }
-  }
+
 
   if (keyIsDown(LEFT_ARROW)) {
     facing = PI;
     if (inTunnel(py)) {
       px -= moveSpeed;
     } 
-    else if (canMove(px +moveSpeed, py)) {
-      px += moveSpeed;
+    else if (canMove(px - moveSpeed, py)) {
+      px -= moveSpeed;
     }
   }
   if (keyIsDown(RIGHT_ARROW)) {
-    if (py > tunnelYMin && py < tunnelYMax) {
-      px += 8;
+    facing = 0;
+    if (inTunnel(py)) {
+      px += moveSpeed;
     } 
-    else if (px + pd/2 < wallX2) {
-      px += 8;
+    else if (canMove(px + moveSpeed, py)) {
+      px += moveSpeed;
     }
-    facing = 0; // 오른쪽
   }
   if (keyIsDown(UP_ARROW)) {
-    if (py - pd/2 > wallY1){
-      py -= 8;
+    facing = -PI/2;
+    if (canMove(px, py- moveSpeed)) {
+      py -= moveSpeed;
     }
-      facing = -1/2 * PI; // 위
   }
   if (keyIsDown(DOWN_ARROW)) {
-    if (py + pd/2 < wallY2) {
-      py += 8;
+    facing = PI/2;
+    if (canMove(px, py+ moveSpeed)) {
+      py += moveSpeed;
     }
-    facing = 1/2 * PI; // 아래
   }
   fill(255, 255, 0);
   noStroke();
   arc(px, py, pd, pd, facing + mouthAngle, facing + TWO_PI - mouthAngle, PIE);
-
 }
 
 //20260425_23:09
