@@ -147,6 +147,14 @@ function draw() {
       }
     }
   }
+
+  if(score == 5){
+    background(0, 0, 0, 200);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(180);
+    text("GAME CLEAR!", width / 2, height / 2);
+  }
 }
 
 
