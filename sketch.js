@@ -50,6 +50,10 @@ function setup() {
   }
 }
 
+function isWall(x, y) {
+  x = int(constrain(x, 0, img.width - 1));
+
+
 function draw() {
   image(img, 0, 0);
 
