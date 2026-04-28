@@ -51,8 +51,10 @@ function setup() {
 }
 
 function isWall(x, y) {
-  x = int(constrain(x, 0, img.width - 1));
-
+  x = int(constrain(x, 0, img.width - 1)); //밖으로 나가는 걸 제한함
+  y = int(constrain(y, 0, img.height - 1)); //벽인지 확인함
+  return wallPixels[y][x];
+}
 
 function draw() {
   image(img, 0, 0);
@@ -111,7 +113,7 @@ function draw() {
   fill(255, 255, 0);
   noStroke();
   arc(px, py, pd, pd, facing + mouthAngle, facing + TWO_PI - mouthAngle, PIE);
-  //이러면 팩맨이 게임 실행하고 사라짐...
+
 
 
 }
