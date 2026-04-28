@@ -1,4 +1,4 @@
-/*
+
 
 let img; 
 
@@ -18,9 +18,9 @@ let score = 0;
 let moveSpeed = 8;
 
 
-let dx = [100, 200, 300, 400, 500]; // 점들의 X 좌표
-let dy = [150, 250, 100, 300, 200]; // 점들의 Y 좌표
-let dSize = 50;                     // 점들의 크기
+let dx = [430, 645, 860, 1075, 1290]; // 점들의 X 좌표
+let dy = [123, 123, 123, 123, 123]; // 점들의 Y 좌표
+let dSize = 45;                     // 점들의 크기
 let dActive = [true, true, true, true, true]; // 점들의 생존 여부 (핵심!)
 
 
@@ -141,7 +141,7 @@ function draw() {
   }
 }
 
-*/
+
 
 
 // //점찍기
