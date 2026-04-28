@@ -119,8 +119,8 @@ function draw() {
     if(px<-py){
       px= width + pd;
     }
-    if(px> width -pd){
-      px= -pd
+    if(px> width +pd){
+      px= -pd;
     }
   }
 
