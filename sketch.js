@@ -123,12 +123,13 @@ function draw() {
       py += moveSpeed;
     }
   }
+//이제워프처리해야함
+
   fill(255, 255, 0);
   noStroke();
   arc(px, py, pd, pd, facing + mouthAngle, facing + TWO_PI - mouthAngle, PIE);
 }
 
-//20260425_23:09
 
 
 
