@@ -5,10 +5,10 @@ let pd = 65; // 팩맨의 지름
 
 let wallPixels = [];
 
-let wallX1 = 383;
-let wallX2 = 2430;
-let wallY1 = 90;
-let wallY2 = 1460;
+// let wallX1 = 383;
+// let wallX2 = 2430;
+// let wallY1 = 90;
+// let wallY2 = 1460;
 // 벽을 하나하나 만드는 건 현실적으로 어렵
 // 이미지 픽셀을 뽑아내는 코드를 짜야할 듯...
 
@@ -20,6 +20,7 @@ let mouthDir = 1; // 1: 열리는 방향
 let facing = 0; // 팩맨이 바라보는 방향 (PI -> Radians)
 
 let score = 0;
+let moveSpeed = 8;
 
 function preload() {
   img = loadImage('Map.png');
@@ -64,6 +65,10 @@ function canMove(nx, ny){
           !isWall(nx, ny + r);
 }
 
+function inTunnel(y) {
+  return y > tunnelYMin && y < tunnelYMax;
+}
+
 function draw() {
   image(img, 0, 0);
 
@@ -76,26 +81,26 @@ function draw() {
   if (mouthAngle > 0.4) mouthDir = -1;
   if (mouthAngle < 0.01) mouthDir = 1;
 
-  if (py > tunnelYMin && py < tunnelYMax) {
-    // 왼쪽 끝으로 나가면 오른쪽으로 워프
-    if (px < 0) {
-      px = width;
-    }
-    // 오른쪽 끝으로 나가면 왼쪽으로 워프
-    if (px > width) {
-      px = 0;
-      facing = PI;
-    }
+  // if (py > tunnelYMin && py < tunnelYMax) {
+  //   // 왼쪽 끝으로 나가면 오른쪽으로 워프
+  //   if (px < 0) {
+  //     px = width;
+  //   }
+  //   // 오른쪽 끝으로 나가면 왼쪽으로 워프
+  //   if (px > width) {
+  //     px = 0;
+  //     facing = PI;
+  //   }
   }
 
   if (keyIsDown(LEFT_ARROW)) {
-    if (py > tunnelYMin && py < tunnelYMax) {
-      px -= 8;
+    facing = PI;
+    if (inTunnel(py)) {
+      px -= moveSpeed;
     } 
-    else if (px - pd/2 > wallX1) {
-      px -= 8;
+    else if (canMove(px +moveSpeed, py)) {
+      px += moveSpeed;
     }
-    facing = PI; // 왼쪽
   }
   if (keyIsDown(RIGHT_ARROW)) {
     if (py > tunnelYMin && py < tunnelYMax) {
@@ -122,22 +127,9 @@ function draw() {
   noStroke();
   arc(px, py, pd, pd, facing + mouthAngle, facing + TWO_PI - mouthAngle, PIE);
 
-
-
 }
 
 //20260425_23:09
-
-
-
-
-
-
-
-
-
-
-
 
 
 
