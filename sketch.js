@@ -1,7 +1,7 @@
 let img; 
 
 let px, py; 
-let pd = 75; // 팩맨의 지름
+let pd = 65; // 팩맨의 지름
 
 let wallPixels = [];
 
@@ -54,6 +54,14 @@ function isWall(x, y) {
   x = int(constrain(x, 0, img.width - 1)); //밖으로 나가는 걸 제한함
   y = int(constrain(y, 0, img.height - 1)); //벽인지 확인함
   return wallPixels[y][x];
+}
+
+function canMove(nx, ny){
+  let r = pd / 2- 4; //팩맨 원의 테두리 부분은 픽셀 체크 -> 여긴 AI 도움을 받음...
+  return  !isWall(nx -r, ny) &&
+          !isWall(nx + r, ny) &&
+          !isWall(nx, ny - r) &&
+          !isWall(nx, ny + r);
 }
 
 function draw() {
