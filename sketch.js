@@ -94,8 +94,8 @@ let facing = 0;
 let enemies
 let score = 0;
 let energy = 3;
-let gameOver = false;
-let gameClear = false;
+// let gameOver = false;
+// let gameClear = false;
 
 let q = 430;
 let a = 215;
@@ -104,9 +104,13 @@ let dx = [q,q+a,q+2*a,q+3*a,q+4*a,q,q+a,q+2*a,q+3*a,q+4*a,q,q+a,q+2*a,q+4*a,q+a,
 let dy = [123,123,123,123,123,315,315,315,315,315,465,465,465,465,615,615,615];
 
 let dSize = 45;
-let enemySize = 60;
+let eSize = 60;
+
+let ex = [q*a, q+8*a];
+let ey =[700, 700];
 
 let dActive = [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
+let eActive = [true, true];
 
 function preload() {
   img = loadImage("Map.png");
@@ -114,8 +118,8 @@ function preload() {
 
 function setup() {
   createCanvas(2816, 1536);
-  px = 1400;
-  py = 800;
+  px = width/2;
+  py = height/2;
 }
 
 function inTunnel(y) {
@@ -126,8 +130,9 @@ function draw() {
   image(img, 0, 0);
 
   fill(255);
-  textSize(20);
-  text("점수: " + score, 20, 20);
+  textSize(70);
+  text("점수: " + score, 20, 100);
+  text("목숨: " + energy, 20, 200);
 
   // 입 애니메이션
   mouthAngle += 0.03 * mouthDir;
@@ -145,11 +150,11 @@ function draw() {
   }
   if (keyIsDown(UP_ARROW)) {
     facing = -PI / 2;
-    px -= 8;
+    py -= 8;
   }
   if (keyIsDown(DOWN_ARROW)) {
     facing = PI / 2;
-    px += 8;
+    py += 8;
   }
 
   if (inTunnel(py)) {
@@ -179,10 +184,10 @@ function draw() {
     }
   }
 
-  for (let i = 0; j < 17; j++) {
+  for (let j = 0; j < 2; j++) {
     if (eActive[j]) {
-      fill(255, 100, 100);
-      ellipse(ex[j], ey[j], dSize);
+      fill(100, 100, 255);
+      ellipse(ex[j], ey[j], eSize);
 
       let e = dist(px, py, ex[j], ey[j]);
       if (e < pd / 2 + eSize / 2) {
