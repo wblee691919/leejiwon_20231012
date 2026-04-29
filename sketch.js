@@ -91,6 +91,7 @@ let mouthAngle = 0;
 let mouthDir = 1;
 let facing = 0;
 
+let enemies
 let score = 0;
 let energy = 3;
 let gameOver = false;
@@ -103,6 +104,7 @@ let dx = [q,q+a,q+2*a,q+3*a,q+4*a,q,q+a,q+2*a,q+3*a,q+4*a,q,q+a,q+2*a,q+4*a,q+a,
 let dy = [123,123,123,123,123,315,315,315,315,315,465,465,465,465,615,615,615];
 
 let dSize = 45;
+let enemySize = 60;
 
 let dActive = [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
 
@@ -132,24 +134,22 @@ function draw() {
   if (mouthAngle > 0.4) mouthDir = -1;
   if (mouthAngle < 0.01) mouthDir = 1;
 
-  let nextX = px;
-  let nextY = py;
 
   if (keyIsDown(LEFT_ARROW)) {
     facing = PI;
-    nextX -= 8;
+    px -= 8;
   }
   if (keyIsDown(RIGHT_ARROW)) {
     facing = 0;
-    nextX += 8;
+    px += 8;
   }
   if (keyIsDown(UP_ARROW)) {
     facing = -PI / 2;
-    nextY -= 8;
+    px -= 8;
   }
   if (keyIsDown(DOWN_ARROW)) {
     facing = PI / 2;
-    nextY += 8;
+    px += 8;
   }
 
   if (inTunnel(py)) {
@@ -175,6 +175,19 @@ function draw() {
       if (d < pd / 2 + dSize / 2) {
         dActive[i] = false;
         score++;
+      }
+    }
+  }
+
+  for (let i = 0; j < 17; j++) {
+    if (eActive[j]) {
+      fill(255, 100, 100);
+      ellipse(ex[j], ey[j], dSize);
+
+      let e = dist(px, py, ex[j], ey[j]);
+      if (e < pd / 2 + eSize / 2) {
+        eActive[j] = false;
+        energy--;
       }
     }
   }
