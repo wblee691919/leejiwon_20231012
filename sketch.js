@@ -139,28 +139,53 @@ function draw() {
   if (mouthAngle > 0.4) mouthDir = -1;
   if (mouthAngle < 0.01) mouthDir = 1;
 
+  let nx = px;
+  let ny = py;
 
   if (keyIsDown(LEFT_ARROW)) {
     facing = PI;
-    px -= 8;
+    nx -= 8;
   }
   if (keyIsDown(RIGHT_ARROW)) {
     facing = 0;
-    px += 8;
+    nx += 8;
   }
   if (keyIsDown(UP_ARROW)) {
     facing = -PI / 2;
-    py -= 8;
+    ny -= 8;
   }
   if (keyIsDown(DOWN_ARROW)) {
     facing = PI / 2;
-    py += 8;
+    ny += 8;
   }
 
   if (inTunnel(py)) {
     if (px < -pd) px = width + pd;
     if (px > width + pd) px = -pd;
   }
+ //이건 X방향만 충돌코드
+  let collisionX = false;
+  for (let i = 0; i < walls.length; i++) {
+    let [wx, wy, ww, wh] = walls[i];
+    let cx = constrain(nx, wx, wx + ww); //못 가게 막는 함수 https://p5js.org/ko/examples/calculating-values-constrain/
+    let cy = constrain(ny, wy, wy + wh);
+    if (dist(nx, py, cx, cy) < pd / 2) {
+      collisionX = true;
+    }
+  }
+
+  let collisionY = false;
+  for (let i = 0; i < walls.length; i++) {
+    let [wx, wy, ww, wh] = walls[i];
+    let cx = constrain(nx, wx, wx + ww);
+    let cy = constrain(ny, wy, wy + wh);
+    if (dist(px, ny, cx, cy) < pd / 2) {
+      collisionY = true;
+    }
+  }
+
+  if (!collisionX) px = nx;
+  if (!collisionY) py = ny;
 
   fill(255, 255, 0);
   noStroke();
@@ -200,9 +225,17 @@ function draw() {
   if (score == 17) {
     background(0, 0, 0, 200);
     fill(255);
-    textAlign(CENTER, CENTER);
     textSize(180);
+    textAlign(CENTER, CENTER);
     text("GAME CLEAR!", width / 2, height / 2);
   }
+  if (energy <= 0) {
+    background(0, 0, 0, 200);
+    fill(255);
+    textSize(180);
+    textAlign(CENTER, CENTER);
+    text("GAME OVER!", width / 2, height / 2);
+  }
 }
+
 //점 찍기 끝...
