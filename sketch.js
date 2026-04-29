@@ -1,5 +1,3 @@
-//이 코드 다 지우고 처음에 만든 거랑 섞어서 다시 만들기...
-//다 다시 합쳐서 p5js에서 시험
 let walls = [
   [0, 0, 2816, 85],
   [0, 0, 378, 505],
@@ -91,11 +89,8 @@ let mouthAngle = 0;
 let mouthDir = 1;
 let facing = 0;
 
-let enemies
 let score = 0;
 let energy = 3;
-// let gameOver = false;
-// let gameClear = false;
 
 let q = 430;
 let a = 450;
@@ -114,18 +109,17 @@ let dy = [123,123,123,123,123,
           615,615,615,650,
           900,900,900,850,
           1050,1050,1050,1050,1050,
-          
           1400,1400,1400,1400,1400];
 
 let dSize = 45;
 let eSize = 60;
 
-let ex = [1110,1720];
-let ey =[763, 763];
+let ex = [1110,1720, 1630, 1020, 1788];
+let ey =[763, 763, 400, 1230, 1230];
 
 let dActive = [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,
   true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
-let eActive = [true, true];
+let eActive = [true, true,true,true,true];
 
 function preload() {
   img = loadImage("Map.png");
@@ -142,6 +136,25 @@ function inTunnel(y) {
 }
 
 function draw() {
+
+  if (energy <= 0 || score == 17) {
+    background(0, 200);
+
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(180);
+
+    if (score == 17) {
+      text("GAME CLEAR!", width/2, height/2);
+    } else {
+      text("GAME OVER", width/2, height/2);
+    }
+  textSize(50);
+  text("아무 키나 누르면 재시작", width/2, height/2 + 120);
+
+  return;
+  }
+
   image(img, 0, 0);
 
   fill(255);
@@ -211,6 +224,13 @@ function draw() {
   // 적도 만들어야 함 
   // 게임 재시작도 해야 됨
   //에너지도
+
+  if (frameCount % 180 === 0) { //약 3초 정도에 한 번씩 true
+  for (let i = 0; i < 5; i++) {
+    eActive[i] = true;
+  }
+}
+
   for (let i = 0; i < 50; i++) {
     if (dActive[i]) {
       fill(255, 100, 100);
@@ -224,7 +244,7 @@ function draw() {
     }
   }
 
-  for (let j = 0; j < 2; j++) {
+  for (let j = 0; j < 5; j++) {
     if (eActive[j]) {
       fill(100, 100, 255);
       ellipse(ex[j], ey[j], eSize);
@@ -236,20 +256,25 @@ function draw() {
       }
     }
   }
+}
+  function keyPressed() {
+  if (energy <= 0 || score == 17) {
 
-  if (score == 17) {
-    background(0, 0, 0, 200);
-    fill(255);
-    textSize(180);
-    textAlign(CENTER, CENTER);
-    text("GAME CLEAR!", width / 2, height / 2);
-  }
-  if (energy <= 0) {
-    background(0, 0, 0, 200);
-    fill(255);
-    textSize(180);
-    textAlign(CENTER, CENTER);
-    text("GAME OVER!", width / 2, height / 2);
+    px = width/2;
+    py = height/2;
+
+    for (let i = 0; i < dActive.length; i++) {
+      dActive[i] = true;
+    }
+
+    for (let i = 0; i < 5; i++) {
+      eActive[i] = true;
+    }
+
+    score = 0;
+    energy = 3;
+
+    return;
   }
 }
 
