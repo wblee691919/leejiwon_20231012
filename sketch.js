@@ -78,10 +78,11 @@ let walls = [
   [1550, 657, 32, 211],
   [1231, 832, 352, 35]
 ]; 
+
 let img;
 
 let px, py;
-let pd = 75;
+let pd = 60;
 
 let tunnelYMin = 710;
 let tunnelYMax = 825;
@@ -91,6 +92,9 @@ let mouthDir = 1;
 let facing = 0;
 
 let score = 0;
+let energy = 3;
+let gameOver = false;
+let gameClear = false;
 
 let q = 430;
 let a = 215;
@@ -110,5 +114,77 @@ function setup() {
   createCanvas(2816, 1536);
   px = 1400;
   py = 800;
+}
+
+function inTunnel(y) {
+  return y > tunnelYMin && y < tunnelYMax;
+}
+
+function draw() {
+  image(img, 0, 0);
+
+  fill(255);
+  textSize(20);
+  text("점수: " + score, 20, 20);
+
+  // 입 애니메이션
+  mouthAngle += 0.03 * mouthDir;
+  if (mouthAngle > 0.4) mouthDir = -1;
+  if (mouthAngle < 0.01) mouthDir = 1;
+
+  let nextX = px;
+  let nextY = py;
+
+  if (keyIsDown(LEFT_ARROW)) {
+    facing = PI;
+    nextX -= 8;
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    facing = 0;
+    nextX += 8;
+  }
+  if (keyIsDown(UP_ARROW)) {
+    facing = -PI / 2;
+    nextY -= 8;
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    facing = PI / 2;
+    nextY += 8;
+  }
+
+  if (inTunnel(py)) {
+    if (px < -pd) px = width + pd;
+    if (px > width + pd) px = -pd;
+  }
+
+  fill(255, 255, 0);
+  noStroke();
+  arc(px, py, pd, pd, facing + mouthAngle, facing + TWO_PI - mouthAngle, PIE);
+
+
+  //벽 충돌 코드 짜야 함
+  // 적도 만들어야 함 
+  // 게임 재시작도 해야 됨
+  //에너지도
+  for (let i = 0; i < 17; i++) {
+    if (dActive[i]) {
+      fill(255, 100, 100);
+      ellipse(dx[i], dy[i], dSize);
+
+      let d = dist(px, py, dx[i], dy[i]);
+      if (d < pd / 2 + dSize / 2) {
+        dActive[i] = false;
+        score++;
+      }
+    }
+  }
+
+  if (score == 17) {
+    background(0, 0, 0, 200);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(180);
+    text("GAME CLEAR!", width / 2, height / 2);
+  }
 }
 //점 찍기 끝...
