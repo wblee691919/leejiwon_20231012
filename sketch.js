@@ -1,5 +1,5 @@
 //이 코드 다 지우고 처음에 만든 거랑 섞어서 다시 만들기...
-
+//다 다시 합쳐서 p5js에서 시험
 let walls = [
   [0, 0, 2816, 85],
   [0, 0, 378, 505],
@@ -77,6 +77,38 @@ let walls = [
   [1232, 657, 32, 211],
   [1550, 657, 32, 211],
   [1231, 832, 352, 35]
-];
+]; 
+let img;
 
+let px, py;
+let pd = 75;
+
+let tunnelYMin = 710;
+let tunnelYMax = 825;
+
+let mouthAngle = 0;
+let mouthDir = 1;
+let facing = 0;
+
+let score = 0;
+
+let q = 430;
+let a = 215;
+
+let dx = [q,q+a,q+2*a,q+3*a,q+4*a,q,q+a,q+2*a,q+3*a,q+4*a,q,q+a,q+2*a,q+4*a,q+a,q+2*a,q+4*a];
+let dy = [123,123,123,123,123,315,315,315,315,315,465,465,465,465,615,615,615];
+
+let dSize = 45;
+
+let dActive = [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
+
+function preload() {
+  img = loadImage("Map.png");
+}
+
+function setup() {
+  createCanvas(2816, 1536);
+  px = 1400;
+  py = 800;
+}
 //점 찍기 끝...
