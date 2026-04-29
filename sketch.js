@@ -98,18 +98,33 @@ let energy = 3;
 // let gameClear = false;
 
 let q = 430;
-let a = 215;
+let a = 450;
 
-let dx = [q,q+a,q+2*a,q+3*a,q+4*a,q,q+a,q+2*a,q+3*a,q+4*a,q,q+a,q+2*a,q+4*a,q+a,q+2*a,q+4*a];
-let dy = [123,123,123,123,123,315,315,315,315,315,465,465,465,465,615,615,615];
+let dx = [q,q+a,q+2*a,q+3*a,q+4*a,
+          q,q+a,q+2*a,q+3*a,q+4*a,
+          q,q+a,q+2*a,q+3*a,q+4*a,
+          q+a,q+2*a,q+3*a,q+4*a-77,
+          q+a,q+2*a,q+3*a,q+4*a-77,
+          q+30,q+a,q+2*a,q+3*a,q+4*a,
+          q+30,q+a,q+2*a,q+3*a,q+4*a,
+          q,q+a,q+2*a,q+3*a,q+4*a];
+let dy = [123,123,123,123,123,
+          315,315,315,315,315,
+          465,465,465,465,465,
+          615,615,615,650,
+          900,900,900,850,
+          1050,1050,1050,1050,1050,
+          
+          1400,1400,1400,1400,1400];
 
 let dSize = 45;
 let eSize = 60;
 
-let ex = [q*a, q+8*a];
-let ey =[700, 700];
+let ex = [1110,1720];
+let ey =[763, 763];
 
-let dActive = [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
+let dActive = [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,
+  true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
 let eActive = [true, true];
 
 function preload() {
@@ -159,9 +174,9 @@ function draw() {
     ny += 8;
   }
 
-  if (inTunnel(py)) {
-    if (px < -pd) px = width + pd;
-    if (px > width + pd) px = -pd;
+  if (inTunnel(ny)) {
+    if (nx < -pd) nx = width + pd;
+    if (nx > width + pd) nx = -pd;
   }
  //이건 X방향만 충돌코드
   let collisionX = false;
@@ -196,7 +211,7 @@ function draw() {
   // 적도 만들어야 함 
   // 게임 재시작도 해야 됨
   //에너지도
-  for (let i = 0; i < 17; i++) {
+  for (let i = 0; i < 50; i++) {
     if (dActive[i]) {
       fill(255, 100, 100);
       ellipse(dx[i], dy[i], dSize);
